@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljh.project.mapper.UserinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ljh.project.entity.Userinfo">
+        <id column="id" property="id" />
+        <result column="nickname" property="nickname" />
+        <result column="head_photo" property="headPhoto" />
+        <result column="motto" property="motto" />
+        <result column="achieve_points" property="achievePoints" />
+        <result column="sex" property="sex" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, nickname, head_photo, motto, achieve_points, sex
+    </sql>
+    <update id="addPoints" >
+        update userinfo
+        set achieve_points = achieve_points + #{points}
+        where id = #{id};
+    </update>
+    <update id="daysAddOne">
+        update userinfo
+        set days = days + 1
+        where id = #{id};
+    </update>
+
+    <select id="getUserInfoById" resultType="com.ljh.project.entity.Userinfo">
+        select * from userinfo where id = #{userId};
+    </select>
+
+    <select id="getAchievePointById" resultType="long">
+        select achieve_points from userinfo where id = #{userId};
+    </select>
+
+</mapper>

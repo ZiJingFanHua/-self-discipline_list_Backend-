@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljh.project.mapper.SubtaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ljh.project.entity.Subtask">
+        <id column="id" property="id" />
+        <result column="father_id" property="fatherId" />
+        <result column="status" property="status" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, father_id, status, description
+    </sql>
+
+    <select id="getSubtasksByParentTaskId" resultType="com.ljh.project.entity.Subtask">
+        select * from subtask where father_id = #{id}
+    </select>
+
+</mapper>

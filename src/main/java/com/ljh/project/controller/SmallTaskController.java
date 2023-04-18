@@ -17,13 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author 木心
- * @since 2022-01-16
+/***
+ *Author zijing
+ *Date 2023/4/18 15:48
+ * 子任务控制器
  */
 @RestController
 @RequestMapping("/smallTask")

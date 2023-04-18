@@ -9,6 +9,8 @@
         <result column="subject_id" property="subjectId" />
         <result column="content" property="content" />
         <result column="likes" property="likes" />
+        <result column="form_id" property="formId" />
+        <result column="time" property="time" />
     </resultMap>
 
 </mapper>

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 /***
  *Author zijing
- *Date 2023/4/18 15:38
+ *Date 2023/4/18 15:46
  */
 public interface UserinfoMapper extends BaseMapper<Userinfo> {
 

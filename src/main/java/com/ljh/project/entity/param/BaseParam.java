@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 
-/**
- * @author muxin
- * @version 1.0
- * @date 2021/7/26
- * @description:
+/***
+ *Author zijing
+ *Date 2023/4/18 16:21
  */
 @Data
 @AllArgsConstructor

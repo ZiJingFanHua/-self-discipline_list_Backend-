@@ -9,6 +9,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 /***
  *Author zijing
  *Date 2023/4/18 14:56
@@ -40,4 +42,8 @@ public class Subject {
     @ApiModelProperty(value = "评论数")
     @TableField("comments_num")
     private Long commentsNum;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField("time")
+    private Date time;
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 /***
  *Author zijing
- *Date 2023/4/18 15:37
+ *Date 2023/4/18 15:46
  */
 public interface AwardMapper extends BaseMapper<Award> {
 

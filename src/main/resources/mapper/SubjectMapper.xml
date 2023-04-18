@@ -9,6 +9,7 @@
         <result column="comments_num" property="commentsNum" />
         <result column="content" property="content" />
         <result column="likes" property="likes" />
+        <result column="time" property="time" />
     </resultMap>
 
 </mapper>

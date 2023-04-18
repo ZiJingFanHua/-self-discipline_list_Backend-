@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * @author 11903990213李列伟
- * @data 2021/07/10
- * @description:
+/***
+ *Author zijing
+ *Date 2023/4/17 15:06
  */
 public class Generator {
     /**
@@ -45,7 +44,7 @@ public class Generator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("木心");
+        gc.setAuthor("zijing");
         gc.setOpen(false);
         gc.setBaseResultMap(true);
         gc.setBaseColumnList(true);

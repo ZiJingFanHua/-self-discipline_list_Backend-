@@ -5,13 +5,9 @@ import com.ljh.project.entity.Subtask;
 
 import java.util.List;
 
-/**
- * <p>
- * 子任务表 Mapper 接口
- * </p>
- *
- * @author 木心
- * @since 2022-04-21
+/***
+ *Author zijing
+ *Date 2023/4/18 15:38
  */
 public interface SubtaskMapper extends BaseMapper<Subtask> {
 

@@ -6,13 +6,9 @@ import com.ljh.project.entity.param.PointArchiveParam;
 
 import java.util.List;
 
-/**
- * <p>
- * 积分详情 Mapper 接口
- * </p>
- *
- * @author 木心
- * @since 2022-04-18
+/***
+ *Author zijing
+ *Date 2023/4/18 15:38
  */
 public interface PointsDetailsMapper extends BaseMapper<PointsDetails> {
 

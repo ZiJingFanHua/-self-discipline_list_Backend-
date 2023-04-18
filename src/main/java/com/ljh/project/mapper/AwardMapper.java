@@ -6,13 +6,9 @@ import com.ljh.project.entity.param.AwardExchangeParam;
 
 import java.util.List;
 
-/**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author 木心
- * @since 2022-01-16
+/***
+ *Author zijing
+ *Date 2023/4/18 15:37
  */
 public interface AwardMapper extends BaseMapper<Award> {
 

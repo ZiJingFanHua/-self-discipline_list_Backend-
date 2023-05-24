@@ -3,15 +3,15 @@ package com.ljh.project.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ljh.project.entity.ParentTask;
 import com.ljh.project.entity.param.TaskListParam;
+import com.ljh.project.entity.param.TaskParam;
 import com.ljh.project.entity.result.BaseResult;
+import com.ljh.project.entity.vo.TaskListVo;
 
-/**
- * <p>
- * 父任务表 服务类
- * </p>
- *
- * @author 木心
- * @since 2022-04-21
+import java.util.List;
+
+/***
+ *Author zijing
+ *Date 2023/5/19 14:59
  */
 public interface IParentTaskService extends IService<ParentTask> {
 
@@ -20,4 +20,9 @@ public interface IParentTaskService extends IService<ParentTask> {
     BaseResult getTaskList(TaskListParam taskListParam);
 
     ParentTask getParentTaskById(Long id);
+
+    List<TaskParam> getCreatedTaskList(TaskListParam taskListParam);
+
+    TaskListVo getTaskListDate(String id);
+
 }

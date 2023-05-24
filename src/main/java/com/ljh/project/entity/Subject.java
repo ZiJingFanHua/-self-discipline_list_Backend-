@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /***
@@ -18,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("话题")
+@TableName("Subject")
 @ApiModel(value="话题", description="")
 public class Subject {
 
@@ -29,7 +30,7 @@ public class Subject {
 
     @ApiModelProperty(value = "发布者id")
     @TableField("publisher_id")
-    private Long publisherId;
+    private String publisherId;
 
     @ApiModelProperty(value = "内容")
     @TableField("content")
@@ -37,13 +38,13 @@ public class Subject {
 
     @ApiModelProperty(value = "点赞数")
     @TableField("likes")
-    private Long likes;
+    private Integer likes;
 
     @ApiModelProperty(value = "评论数")
     @TableField("comments_num")
-    private Long commentsNum;
+    private Integer commentsNum;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("time")
-    private Date time;
+    private LocalDate time;
 }

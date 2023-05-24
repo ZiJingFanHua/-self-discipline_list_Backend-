@@ -27,4 +27,6 @@ public class PointsDetailVo {
     @ApiModelProperty("当月总支出")
     private int TotalSpending;
 
+    @ApiModelProperty("总积分")
+    private Long total;
 }

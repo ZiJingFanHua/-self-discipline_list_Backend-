@@ -11,6 +11,57 @@
         <result column="likes" property="likes" />
         <result column="form_id" property="formId" />
         <result column="time" property="time" />
+        <result column="look" property="look" />
     </resultMap>
+    <insert id="insertComment" useGeneratedKeys="true" keyProperty="id">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">id,</if>
+        <if test="commenterId != null">commenter_id,</if>
+        <if test="subjectId != null">subject_id,</if>
+        <if test="content != null">content,</if>
+        <if test="likes != null">likes,</if>
+        <if test="formId != null">form_id,</if>
+        <if test="time != null">time,</if>
+        <if test="look != null">look,</if>
+    </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="commenterId != null">#{commenterId},</if>
+            <if test="subjectId != null">#{subjectId},</if>
+            <if test="content != null">#{content},</if>
+            <if test="likes != null">#{likes},</if>
+            <if test="formId != null">#{formId},</if>
+            <if test="time != null">#{time},</if>
+            <if test="look != null">#{look},</if>
+        </trim>
+    </insert>
 
+    <update id="addLikes">
+        update comment SET
+        likes = likes + 1
+     Where
+        id = #{id}
+    </update>
+
+    <update id="deleteLikes">
+        update comment SET
+        likes = likes - 1
+     Where
+        id = #{id}
+    </update>
+
+
+    <select id="getCommentById" resultType="com.ljh.project.entity.Comment">
+        select * from comment where id = #{id}
+    </select>
+
+
+    <update id="updataLook">
+        update comment SET
+        look = 1
+     Where
+        id = #{id}
+    </update>
 </mapper>

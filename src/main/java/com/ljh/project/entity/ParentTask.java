@@ -17,13 +17,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-/**
- * <p>
- * 父任务表
- * </p>
- *
- * @author 木心
- * @since 2022-04-21
+/***
+ *Author zijing
+ *Date 2023/5/18 11:36
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -73,4 +69,11 @@ public class ParentTask implements Serializable {
     @TableField(exist = false)
     private List<Subtask> subtaskList;
 
+    @ApiModelProperty(value = "完成时间")
+    @TableField("fininshed_time")
+    private LocalDate finishedTime;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField("create_time")
+    private LocalDate createTime = LocalDate.now();
 }

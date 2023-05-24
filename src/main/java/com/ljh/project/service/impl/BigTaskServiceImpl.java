@@ -6,13 +6,9 @@ import com.ljh.project.mapper.BigTaskMapper;
 import com.ljh.project.service.IBigTaskService;
 import org.springframework.stereotype.Service;
 
-/**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author 木心
- * @since 2022-01-16
+/***
+ *Author zijing
+ *Date 2023/5/6 14:49
  */
 @Service
 public class BigTaskServiceImpl extends ServiceImpl<BigTaskMapper, BigTask> implements IBigTaskService {

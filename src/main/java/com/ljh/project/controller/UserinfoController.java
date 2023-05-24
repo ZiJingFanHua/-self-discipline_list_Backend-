@@ -5,9 +5,11 @@ import com.ljh.project.annotation.Authorize;
 import com.ljh.project.entity.Token;
 import com.ljh.project.entity.Userinfo;
 import com.ljh.project.entity.WeChatLoginParam;
+import com.ljh.project.entity.param.UserInfoParam;
 import com.ljh.project.entity.result.BaseResult;
 import com.ljh.project.entity.result.OkResult;
 import com.ljh.project.entity.result.WeChatLoginResult;
+import com.ljh.project.entity.vo.AccountMessageVo;
 import com.ljh.project.service.impl.UserinfoServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,13 +17,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author 木心
- * @since 2022-01-16
+/***
+ *Author zijing
+ *Date 2023/5/6 14:24
  */
 @RestController
 @RequestMapping("/userinfo")
@@ -84,6 +82,20 @@ public class UserinfoController {
     @PostMapping("/test")
     public BaseResult test() {
         return new OkResult();
+    }
+
+    @PostMapping("/setUserInfo")
+    public BaseResult postUserInfo(@RequestBody UserInfoParam userInfoParam) {
+        System.out.println("userinfo----------------" + userInfoParam.getNickname());
+        BaseResult baseResult = userinfoService.setUserInfo(userInfoParam);
+        return baseResult;
+    }
+
+    @GetMapping("/getAccountMessage")
+    @ApiOperation("获取用户积分点和坚持天数接口")
+    public BaseResult getAccountMessage(@ApiParam("用户id") String userId) {
+        AccountMessageVo accountMessageVo =  userinfoService.getAccountMessage(userId);
+        return new OkResult("查询成功！", accountMessageVo);
     }
 }
 

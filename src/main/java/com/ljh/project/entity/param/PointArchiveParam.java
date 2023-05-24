@@ -29,4 +29,6 @@ public class PointArchiveParam {
     @ApiModelProperty("明细条数")
     private int DetailNumber;
 
+    @ApiModelProperty("类型")
+    private int type;
 }

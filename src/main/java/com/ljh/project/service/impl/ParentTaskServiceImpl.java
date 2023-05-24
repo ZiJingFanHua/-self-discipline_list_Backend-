@@ -1,27 +1,27 @@
 package com.ljh.project.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ljh.project.entity.ParentTask;
+import com.ljh.project.entity.PointsDetails;
 import com.ljh.project.entity.param.TaskListParam;
 import com.ljh.project.entity.param.TaskParam;
 import com.ljh.project.entity.result.BaseResult;
 import com.ljh.project.entity.result.TaskCompletionResult;
+import com.ljh.project.entity.vo.TaskListVo;
 import com.ljh.project.mapper.ParentTaskMapper;
 import com.ljh.project.mapper.SubtaskMapper;
 import com.ljh.project.service.IParentTaskService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * <p>
- * 父任务表 服务实现类
- * </p>
- *
- * @author 木心
- * @since 2022-04-21
+/***
+ *Author zijing
+ *Date 2023/5/18 12:24
  */
 @Service
 public class ParentTaskServiceImpl extends ServiceImpl<ParentTaskMapper, ParentTask> implements IParentTaskService {
@@ -31,6 +31,10 @@ public class ParentTaskServiceImpl extends ServiceImpl<ParentTaskMapper, ParentT
 
     @Resource
     SubtaskMapper subtaskMapper;
+
+    @Resource
+    ParentTaskServiceImpl parentTaskService;
+
     @Override
     public Long insertParentTask(ParentTask parentTask) {
         Long taskId = parentTaskMapper.insertParentTask(parentTask);
@@ -85,4 +89,52 @@ public class ParentTaskServiceImpl extends ServiceImpl<ParentTaskMapper, ParentT
         return taskParamList;
     }
 
+
+    /**
+     * 获取完成任务列表
+     * @param taskListParam
+     * @return
+     */
+    @Override
+    public List<TaskParam> getCreatedTaskList(TaskListParam taskListParam) {
+        List<ParentTask> completedParentTask = parentTaskMapper.getCompletedTasks(taskListParam);
+        List<TaskParam> taskParams = TasktParamCopy(completedParentTask);
+        return taskParams;
+    }
+
+    @Override
+    public TaskListVo getTaskListDate(String id) {
+        int time = 4;
+        LocalDate now = LocalDate.now();
+        LocalDate localDate1 = now.plusMonths(1);
+        LocalDate localDate2 = localDate1.minusDays(localDate1.getDayOfMonth()-1);
+        LocalDate localDate = localDate2.minusMonths(time);
+        Integer[] month = new Integer[time];
+        Integer[] complete = new Integer[time];
+        Integer[] unComplete = new Integer[time];
+        for(int i=0;i<time;i++){
+            month[i] = localDate.getMonthValue();
+            LocalDate localDate3 = localDate.plusMonths(1);
+            QueryWrapper<ParentTask> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id",id);
+            queryWrapper.eq("status",1);
+            queryWrapper.between("fininshed_time",localDate,localDate3);
+            List<ParentTask> list = parentTaskService.list(queryWrapper);
+            complete[i] = list.size();
+
+            QueryWrapper<ParentTask> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("user_id",id);
+            queryWrapper1.eq("status",0);
+            queryWrapper1.between("dead_time",localDate,localDate3);
+            List<ParentTask> list1 = parentTaskService.list(queryWrapper1);
+            unComplete[i] = list1.size();
+
+            localDate = localDate3;
+        }
+        TaskListVo taskListVo = new TaskListVo();
+        taskListVo.setMonth(month);
+        taskListVo.setComplete(complete);
+        taskListVo.setUnComplete(unComplete);
+        return taskListVo;
+    }
 }

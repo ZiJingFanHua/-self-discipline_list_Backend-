@@ -12,4 +12,46 @@
         <result column="time" property="time" />
     </resultMap>
 
+    <insert id="insertSubject" keyProperty="id" useGeneratedKeys="true">
+        insert into subject
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="content != null">content,</if>
+            <if test="publisherId != null">publisher_id,</if>
+            <if test="likes != null">likes,</if>
+            <if test="commentsNum != null">comments_num,</if>
+            <if test="time != null">time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="content != null">#{content},</if>
+            <if test="publisherId != null">#{publisherId},</if>
+            <if test="likes != null">#{likes},</if>
+            <if test="commentsNum != null">#{commentsNum},</if>
+            <if test="time != null">#{time},</if>
+        </trim>
+    </insert>
+
+    <update id="updateCommentsNumLong">
+        update subject SET
+        comments_num = comments_num + 1
+     Where
+        id = #{id}
+    </update>
+
+    <update id="addLikes">
+        update subject SET
+        likes = likes + 1
+     Where
+        id = #{id}
+    </update>
+
+    <update id="deleteLikes">
+        update subject SET
+        likes = likes - 1
+     Where
+        id = #{id}
+    </update>
+
 </mapper>

@@ -3,10 +3,9 @@ package com.ljh.project.entity.result;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
-/**
- * @author muxin
- * @date 2021/7/26
- * @description: 正常
+/***
+ *Author zijing
+ *Date 2023/4/19 9:25
  */
 @Data
 public class OkResult extends BaseResult{

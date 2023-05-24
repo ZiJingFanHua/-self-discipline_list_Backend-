@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("comment关系")
+@TableName("comment_relationship")
 @ApiModel(value="comment关系对象", description="")
 public class CommentRelationship {
     private static final long serialVersionUID = 1L;

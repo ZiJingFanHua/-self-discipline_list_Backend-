@@ -3,22 +3,17 @@ package com.ljh.project.controller;
 
 import com.ljh.project.entity.param.PointArchiveParam;
 import com.ljh.project.entity.result.BaseResult;
+import com.ljh.project.entity.result.OkResult;
+import com.ljh.project.entity.vo.PointsListVo;
 import com.ljh.project.service.IPointsDetailsService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-/**
- * <p>
- * 积分详情 前端控制器
- * </p>
- *
- * @author 木心
- * @since 2022-04-18
+/***
+ *Author zijing
+ *Date 2023/5/6 19:29
  */
 @RestController
 @RequestMapping("/pointsDetails")
@@ -39,6 +34,15 @@ public class PointsDetailsController {
     public BaseResult getArchiveByDate(@RequestBody PointArchiveParam pointArchiveParam){
 
         return iPointsDetailsService.getArchiveBydate(pointArchiveParam);
+    }
+
+    @GetMapping("/PointList")
+    @ApiOperation(value = "返回积分列表")
+    public BaseResult getPointList(String id){
+
+        PointsListVo pointsListVo = iPointsDetailsService.getPointsList(id);
+        return new OkResult("查询成功", pointsListVo);
+//        return iPointsDetailsService.getPointsList(userId);
     }
 
 }

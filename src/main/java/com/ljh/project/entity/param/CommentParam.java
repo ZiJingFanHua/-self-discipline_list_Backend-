@@ -23,6 +23,9 @@ public class CommentParam {
     @ApiModelProperty(value = "查询类型(默认为热门)")
     private Integer type = 1;
 
+    @ApiModelProperty(value = "查看人")
+    private String id;
+
     /**
      * 查询评论的话题
      */

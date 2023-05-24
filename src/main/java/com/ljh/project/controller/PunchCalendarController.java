@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ljh.project.entity.PunchCalendar;
 import com.ljh.project.entity.result.BaseResult;
 import com.ljh.project.entity.result.OkResult;
+import com.ljh.project.entity.vo.DaysListVo;
 import com.ljh.project.service.impl.PunchCalendarServiceImpl;
 import com.ljh.project.utils.IsLeapYear;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,13 +20,9 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-/**
- * <p>
- * 打卡日历记录 前端控制器
- * </p>
- *
- * @author 木心
- * @since 2022-04-18
+/***
+ *Author zijing
+ *Date 2023/5/19 13:40
  */
 @RestController
 @RequestMapping("/punchCalendar")
@@ -64,4 +62,39 @@ public class PunchCalendarController {
         return new OkResult("查询成功！", everydayStatusArr);
 
     }
+
+    @GetMapping("/getDaysList")
+    @ApiOperation(value = "查询打卡天数列表")
+    public BaseResult getDaysList(String id){
+        LocalDate now = LocalDate.now();
+        LocalDate localDate = now.minusMonths(3);
+        DaysListVo daysListVo = new DaysListVo();
+        Integer[] month = new Integer[4];
+        Integer[] days = new Integer[4];
+        for(int i =0;i<4;i++){
+            String yearMonth = localDate.getYear()+"-";
+            month[i] = localDate.getMonthValue();
+            days[i] = 0;
+            if(localDate.getMonthValue()<10){
+                yearMonth = yearMonth + "0"+localDate.getMonthValue();
+            }else{
+                yearMonth = yearMonth+localDate.getMonthValue();
+            }
+            PunchCalendar punchCalendar = punchCalendarService.getOne(new QueryWrapper<PunchCalendar>().eq("user_id", id).eq("year_mouth", yearMonth));
+            if(punchCalendar != null) {
+                String calendar = punchCalendar.getCalendar();
+                System.out.println(calendar);
+                for (int j = 0; j < calendar.length(); j++) {
+                    if (calendar.charAt(j) == '1') {
+                        days[i]++;
+                    }
+                }
+            }
+            localDate = localDate.plusMonths(1);
+        }
+        daysListVo.setDays(days);
+        daysListVo.setMonth(month);
+    return new OkResult("搜索成功",daysListVo);
+    }
+
 }

@@ -22,11 +22,11 @@
     </select>
 
     <select id="getCompletedTasks" parameterType="com.ljh.project.entity.param.TaskParam" resultType="com.ljh.project.entity.ParentTask">
-        select * from parent_task where user_id = #{userId} and status = 1 and dead_time &gt;= #{deadTime}
+        select * from parent_task where user_id = #{userId} and status = 1 and dead_time &gt;= #{deadTime} and create_time &lt;= #{deadTime}
     </select>
 
     <select id="getUnCompletedTasks" parameterType="com.ljh.project.entity.param.TaskParam" resultType="com.ljh.project.entity.ParentTask">
-        select * from parent_task where user_id = #{userId} and status = 0 and dead_time &gt;= #{deadTime}
+        select * from parent_task where user_id = #{userId} and status = 0 and dead_time &gt;= #{deadTime} and create_time &lt;= #{deadTime}
     </select>
 
     <insert id="insertParentTask" keyProperty="id" useGeneratedKeys="true">
@@ -40,6 +40,8 @@
             <if test="userId != null">user_id,</if>
             <if test="status != null">status,</if>
             <if test="unfinishedNumber != null">unfinished_number,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="finishedTime != null">fininshed_time,</if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -51,6 +53,8 @@
             <if test="userId != null">#{userId},</if>
             <if test="status != null">#{status},</if>
             <if test="unfinishedNumber != null">#{unfinishedNumber},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="finishedTime != null">#{finishedTime},</if>
         </trim>
     </insert>
 

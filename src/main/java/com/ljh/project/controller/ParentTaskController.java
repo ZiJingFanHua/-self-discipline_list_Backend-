@@ -7,9 +7,11 @@ import com.ljh.project.entity.PointsDetails;
 import com.ljh.project.entity.PunchCalendar;
 import com.ljh.project.entity.Subtask;
 import com.ljh.project.entity.param.TaskListParam;
+import com.ljh.project.entity.param.TaskParam;
 import com.ljh.project.entity.result.BaseResult;
 import com.ljh.project.entity.result.OkResult;
 import com.ljh.project.entity.result.ServerErrResult;
+import com.ljh.project.entity.vo.TaskListVo;
 import com.ljh.project.service.impl.*;
 import com.ljh.project.utils.IsLeapYear;
 import io.swagger.annotations.Api;
@@ -19,10 +21,7 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
@@ -30,13 +29,9 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * <p>
- * 父任务表 前端控制器
- * </p>
- *
- * @author 木心
- * @since 2022-04-21
+/***
+ *Author zijing
+ *Date 2023/5/6 14:52
  */
 @RestController
 @RequestMapping("/parentTask")
@@ -94,7 +89,7 @@ public class ParentTaskController {
     public BaseResult missionAccomplished(@ApiParam("父任务的id") Long id) {
         ParentTask parentTaskById = parentTaskService.getParentTaskById(id);
         try {
-            parentTaskById.setStatus(1).setUnfinishedNumber(0);
+            parentTaskById.setStatus(1).setUnfinishedNumber(0).setFinishedTime(LocalDate.now());
             boolean updateById = parentTaskService.updateById(parentTaskById);
             if (!updateById) {
                 throw new Exception("父任务修改状态失败！");
@@ -162,4 +157,21 @@ public class ParentTaskController {
         }
         return new OkResult("修改成功！", "");
     }
+
+
+    @GetMapping("/getCreatedTaskList")
+    @ApiOperation(value = "查询完成任务列表")
+    public BaseResult getCreatedTaskList(TaskListParam taskListParam){
+        List<TaskParam> createdTaskList = parentTaskService.getCreatedTaskList(taskListParam);
+        return new OkResult("查询成功",createdTaskList);
+    }
+
+
+    @GetMapping("/getTaskListDate")
+    @ApiOperation(value = "查询按月执行任务详情的列表")
+    public BaseResult getTaskListDate(String id){
+        TaskListVo taskListDate = parentTaskService.getTaskListDate(id);
+        return new OkResult("查询成功",taskListDate);
+    }
+
 }

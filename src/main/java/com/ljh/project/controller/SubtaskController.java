@@ -26,13 +26,9 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-/**
- * <p>
- * 子任务表 前端控制器
- * </p>
- *
- * @author 木心
- * @since 2022-04-21
+/***
+ *Author zijing
+ *Date 2023/5/6 14:52
  */
 @RestController
 @Log4j
@@ -65,7 +61,7 @@ public class SubtaskController {
             }
             parentTask.setUnfinishedNumber(parentTask.getUnfinishedNumber() - 1);
             if (parentTask.getUnfinishedNumber() <= 0) {
-                parentTask.setStatus(1);
+                parentTask.setStatus(1).setFinishedTime(LocalDate.now());
                 boolean addPoints = userinfoService.addPoints(parentTask.getUserId(), parentTask.getRewardPoints());
                 if (!addPoints) {
                     throw new Exception("添加奖励点失败！");
